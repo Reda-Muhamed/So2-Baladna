@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36202.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "So2Baladna.Core", "So2Baladna.Core\So2Baladna.Core.csproj", "{081D3D0A-23ED-4ECB-B2C2-A4A5341047CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "So2Baladna.Infrastructure", "So2Baladna.infrastructure\So2Baladna.Infrastructure.csproj", "{30AB23AE-1CC2-4FF1-BB37-1DD0E95C8F01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "So2Baladna.API", "So2Baladna.API\So2Baladna.API.csproj", "{03630485-FF3C-4C76-931A-891CCEF6AF57}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{081D3D0A-23ED-4ECB-B2C2-A4A5341047CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{081D3D0A-23ED-4ECB-B2C2-A4A5341047CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{081D3D0A-23ED-4ECB-B2C2-A4A5341047CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{081D3D0A-23ED-4ECB-B2C2-A4A5341047CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30AB23AE-1CC2-4FF1-BB37-1DD0E95C8F01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30AB23AE-1CC2-4FF1-BB37-1DD0E95C8F01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30AB23AE-1CC2-4FF1-BB37-1DD0E95C8F01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30AB23AE-1CC2-4FF1-BB37-1DD0E95C8F01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03630485-FF3C-4C76-931A-891CCEF6AF57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03630485-FF3C-4C76-931A-891CCEF6AF57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03630485-FF3C-4C76-931A-891CCEF6AF57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03630485-FF3C-4C76-931A-891CCEF6AF57}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{081D3D0A-23ED-4ECB-B2C2-A4A5341047CF} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{30AB23AE-1CC2-4FF1-BB37-1DD0E95C8F01} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{03630485-FF3C-4C76-931A-891CCEF6AF57} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FC93A9BA-4464-4939-8C93-4E9976E2BE72}
+	EndGlobalSection
+EndGlobal

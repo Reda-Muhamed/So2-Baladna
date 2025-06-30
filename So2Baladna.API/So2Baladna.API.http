@@ -1,0 +1,6 @@
+@So2Baladna.API_HostAddress = http://localhost:5154
+
+GET {{So2Baladna.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
