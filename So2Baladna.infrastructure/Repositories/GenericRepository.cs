@@ -32,6 +32,7 @@ namespace So2Baladna.infrastructure.Repositories
 
         public async Task DeleteAsync(int id)
         {
+            
             if (id <= 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(id), "ID must be greater than zero");
@@ -59,7 +60,7 @@ namespace So2Baladna.infrastructure.Repositories
             {
                 return await GetAllAsync(); // Call the parameterless version if no includes are provided
             }
-            IQueryable<T> query = _context.Set<T>().AsNoTracking();
+            var query = _context.Set<T>().AsNoTracking();
             foreach (var include in includes)
             {
                 query = query.Include(include);
