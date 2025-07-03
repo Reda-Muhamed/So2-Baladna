@@ -27,10 +27,10 @@ namespace So2Baladna.infrastructure.Data.Config
                 .IsRequired()
                 .HasMaxLength(200);
             // Configure the relationship with Product
-            builder.HasMany(c => c.products)
-                .WithOne(p => p.Category)
-                .HasForeignKey(p => p.CategoryId)
-                .OnDelete(DeleteBehavior.Restrict);
+            //builder.HasMany(c => c.products)
+            //    .WithOne(p => p.Category)
+            //    .HasForeignKey(p => p.CategoryId)
+            //    .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

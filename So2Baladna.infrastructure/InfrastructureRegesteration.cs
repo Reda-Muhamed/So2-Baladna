@@ -1,9 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using So2Baladna.Core.Interfaces;
+using So2Baladna.Core.Services;
 using So2Baladna.infrastructure.Data;
 using So2Baladna.infrastructure.Repositories;
+using So2Baladna.Infrastructure.Repositories.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,10 +29,14 @@ namespace So2Baladna.infrastructure
             //services.AddScoped<ICategoryrRepository, CategoryrRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddSingleton<IImageManagementService, ImageManagementService>();
+            services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
+
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             });
+
             return services;
 
         }

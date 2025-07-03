@@ -21,4 +21,8 @@
     <ProjectReference Include="..\So2Baladna.infrastructure\So2Baladna.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Images\" />
+  </ItemGroup>
+
 </Project>

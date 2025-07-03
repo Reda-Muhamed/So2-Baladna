@@ -31,17 +31,17 @@ namespace So2Baladna.infrastructure.Data.Config
                     new Product { Id = 2, Name = "T-Shirt", Description = "Cotton t-shirt", Price = 19.99m, CategoryId = 2 },
                     new Product { Id = 3, Name = "Blender", Description = "High-speed blender", Price = 49.99m, CategoryId = 3 }
                 );
-            // Configure the relationship with Category
-            builder.HasOne(p => p.Category)
-                    .WithMany(c => c.products)
-                    .HasForeignKey(p => p.CategoryId)
-                    .OnDelete(DeleteBehavior.Restrict);
+            //// Configure the relationship with Category
+            //builder.HasOne(p => p.Category)
+            //        .WithMany(c => c.products)
+            //        .HasForeignKey(p => p.CategoryId)
+            //        .OnDelete(DeleteBehavior.Restrict);
     
-                // Configure the relationship with Photo
-                builder.HasMany(p => p.Photos)
-                    .WithOne(ph => ph.Product)
-                    .HasForeignKey(ph => ph.ProductId)
-                    .OnDelete(DeleteBehavior.Restrict);
+            //    // Configure the relationship with Photo
+            //    builder.HasMany(p => p.Photos)
+            //        .WithOne(ph => ph.Product)
+            //        .HasForeignKey(ph => ph.ProductId)
+            //        .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

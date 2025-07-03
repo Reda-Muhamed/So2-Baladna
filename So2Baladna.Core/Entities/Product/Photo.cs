@@ -12,8 +12,9 @@ namespace So2Baladna.Core.Entities.Product
         public  string Url { get; set; }
         public  string ImageName { get; set; }
         public  int ProductId { get; set; }
-        [ForeignKey(nameof(ProductId))]
-        public virtual Product Product { get; set; } = null!;
+    //    [ForeignKey(nameof(ProductId))]
+    //    public virtual Product Product { get; set; } = null!;
+    //
     }
   
 }
