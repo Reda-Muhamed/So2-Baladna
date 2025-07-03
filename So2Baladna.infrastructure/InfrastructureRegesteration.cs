@@ -36,6 +36,8 @@ namespace So2Baladna.infrastructure
             {
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             });
+            services.AddMemoryCache();
+
 
             return services;
 
