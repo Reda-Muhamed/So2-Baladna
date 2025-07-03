@@ -4,6 +4,7 @@ using So2Baladna.API.Helper;
 using So2Baladna.Core.Dto;
 using So2Baladna.Core.Entities.Product;
 using So2Baladna.Core.Interfaces;
+using So2Baladna.Core.Sharing;
 
 namespace So2Baladna.API.Controllers
 {
@@ -17,21 +18,24 @@ namespace So2Baladna.API.Controllers
         // Add methods for handling product-related requests here
         // For example: GetAllProducts, GetProductById, AddProduct, UpdateProduct, DeleteProduct, etc.
         [HttpGet("get-all")]
-        public async Task<IActionResult> GetAllProducts()
+        public async Task<IActionResult> GetAllProducts([FromQuery] ProductParams productParams)
         {
             try
             {
-                var products = await unitWork.ProductRepository.GetAllAsync(x=>x.Category, x=>x.Photos);
+                var products = await unitWork.ProductRepository.GetAllAsync(productParams);
 
                 if (products == null || !products.Any())
-                    return NotFound(new ResponseHandler<string>(404, null, "there is no products"));
-                var productDtos = mapper.Map<List<ProductGetDto>>(products);
-                return Ok(new ResponseHandler<List<ProductGetDto>>(200, productDtos.ToList()));
+                    return NotFound(new ResponseHandler<string>(404, null, "There are no products"));
 
+                var count = await unitWork.ProductRepository.GetCountAsync();
+
+                // Convert products to IReadOnlyList<ProductGetDto> to match the expected type
+                var productList = products.ToList().AsReadOnly();
+
+                return Ok(new Pagination<ProductGetDto>(productParams.PageNumber, productParams.PageSize, count, productList));
             }
-            catch (Exception) 
+            catch (Exception)
             {
-
                 return StatusCode(500, new ResponseHandler<string>(500, null, "Internal Server Error"));
             }
         }

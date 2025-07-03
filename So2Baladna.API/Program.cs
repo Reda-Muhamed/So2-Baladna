@@ -6,11 +6,14 @@ using So2Baladna.infrastructure;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", policy =>
+    options.AddPolicy("CROSPolicy", policy =>
     {
-        policy.AllowAnyOrigin()
+        policy
               .AllowAnyHeader()
-              .AllowAnyMethod();
+              .AllowAnyMethod()
+              .AllowCredentials()
+              .WithOrigins("https://localhost:4200")
+              ;
     });
 });
 
@@ -36,6 +39,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors("CROSPolicy");
 app.UseMiddleware<XssProtectionMiddleware>();
 
 app.UseMiddleware<RateLimitingMiddleware>();

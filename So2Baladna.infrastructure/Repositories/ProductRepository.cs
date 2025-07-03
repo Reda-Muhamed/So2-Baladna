@@ -4,6 +4,7 @@ using So2Baladna.Core.Dto;
 using So2Baladna.Core.Entities.Product;
 using So2Baladna.Core.Interfaces;
 using So2Baladna.Core.Services;
+using So2Baladna.Core.Sharing;
 using So2Baladna.infrastructure.Data;
 using System;
 using System.Collections.Generic;
@@ -128,7 +129,47 @@ namespace So2Baladna.infrastructure.Repositories
             await context.SaveChangesAsync(); // Save all changes once
             return true;
         }
+        public async Task<IEnumerable<ProductGetDto>> GetAllAsync(ProductParams productParams)
+        {
+            var products = context.Products.Include(x => x.Category).Include(x => x.Photos).AsNoTracking();
+            //filtering by words
+            if (!string.IsNullOrEmpty(productParams.Search))
+            {
+                var searchWords = productParams.Search.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
+                products = products.Where(x => searchWords.All(word=>
+                    x.Name.Contains(word, StringComparison.OrdinalIgnoreCase) || 
+                    x.Description.Contains(word, StringComparison.OrdinalIgnoreCase) || 
+                    x.Category.Name.Contains(word, StringComparison.OrdinalIgnoreCase)
+
+                ));
+            }
+
+            // Fix: Use productParams.CategoryId instead of undefined categoryId
+            if (productParams.CategoryId.HasValue)
+                products = products.Where(x => x.CategoryId == productParams.CategoryId);
+
+            // Fix: Use productParams.Sort instead of undefined sort
+            if (!string.IsNullOrEmpty(productParams.Sort))
+            {
+                products = productParams.Sort switch
+                {
+                    "PriceAce" => products.OrderBy(x => x.Price),
+                    "PriceDce" => products.OrderByDescending(x => x.Price),
+                    _ => products.OrderBy(x => x.Price),
+                };
+            }
+            else
+                products = products.OrderBy(x => x.Name);
+
+            // Fix: Use productParams.PageNumber and productParams.PageSize instead of undefined pageNumber and pageSize
+            var pageNumber = productParams.PageNumber > 0 ? productParams.PageNumber : 1;
+            var pageSize = productParams.PageSize > 0 ? productParams.PageSize : 8;
+
+            products = products.Skip(pageSize * (pageNumber - 1)).Take(pageSize);
+            var result = mapper.Map<List<ProductGetDto>>(products);
+            return result;
+        }
 
     }
 }

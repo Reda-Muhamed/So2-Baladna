@@ -106,6 +106,8 @@ namespace So2Baladna.infrastructure.Repositories
             return entity;
         }
 
+        public async Task<int> GetCountAsync() => await _context.Set<T>().CountAsync();
+
         public async Task UpdateAsync(T entity)
         {
             
