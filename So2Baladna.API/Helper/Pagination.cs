@@ -11,7 +11,7 @@
         }
 
         public int PageIndex { get; set; } = 1; // Default to the first page
-        public int PageSize { get; set; } = 10; // Default to 10 items per page
+        public int PageSize { get; set; }  // Default to 10 items per page
         public int TotalCount { get; set; } // Total number of items
         public int TotalPages => (int)Math.Ceiling((double)TotalCount / PageSize); // Calculate total pages
         public bool HasPreviousPage => PageIndex > 1; // Check if there is a previous page

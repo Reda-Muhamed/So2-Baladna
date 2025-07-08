@@ -36,7 +36,7 @@ namespace So2Baladna.infrastructure.Repositories
             }
 
             var product = mapper.Map<Product>(productDto);
-            await context.Set<Product>().AddAsync(product);
+            await context.Products.AddAsync(product);
             await context.SaveChangesAsync();
 
             var imagePaths = await imageManagementService.UploadImageAsync(productDto.Images, productDto.Name);
@@ -129,46 +129,104 @@ namespace So2Baladna.infrastructure.Repositories
             await context.SaveChangesAsync(); // Save all changes once
             return true;
         }
-        public async Task<IEnumerable<ProductGetDto>> GetAllAsync(ProductParams productParams)
+        //public async Task<IEnumerable<ProductGetDto>> GetAllAsync(ProductParams productParams)
+        //{
+        //    var products = context.Products
+        //        .Include(x => x.Category)
+        //        .Include(x => x.Photos)
+        //        .AsNoTracking()
+        //        .AsQueryable(); // ✅ مهم جداً هنا            //filtering by words
+        //    //if (!string.IsNullOrEmpty(productParams.Search))
+        //    //{
+        //    //    var searchWords = productParams.Search.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+        //    //    products = products.Where(x => searchWords.All(word=>
+        //    //        x.Name.Contains(word, StringComparison.OrdinalIgnoreCase) || 
+        //    //        x.Description.Contains(word, StringComparison.OrdinalIgnoreCase) || 
+        //    //        x.Category.Name.Contains(word, StringComparison.OrdinalIgnoreCase)
+
+        //    //    ));
+        //    //}
+        //    if (!string.IsNullOrWhiteSpace(productParams.Search))
+        //    {
+        //        var searchWords = productParams.Search.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+        //        products = products.Where(x => searchWords.All(word =>
+        //            x.Name.Contains(word, StringComparison.OrdinalIgnoreCase) ||
+        //            x.Description.Contains(word, StringComparison.OrdinalIgnoreCase) ||
+        //            x.Category.Name.Contains(word, StringComparison.OrdinalIgnoreCase)
+        //        ));
+        //    }
+
+
+        //    // Fix: Use productParams.CategoryId instead of undefined categoryId
+        //    if (productParams.CategoryId>0)
+        //        products = products.Where(x => x.CategoryId == productParams.CategoryId);
+
+        //    // Fix: Use productParams.Sort instead of undefined sort
+        //    if (!string.IsNullOrEmpty(productParams.Sort))
+        //    {
+        //        products = productParams.Sort switch
+        //        {
+        //            "Ace" => products.OrderBy(x => x.Price),
+        //            "Dce" => products.OrderByDescending(x => x.Price),
+        //            _ => products.OrderBy(x => x.Price),
+        //        };
+        //    }
+        //    else
+        //        products = products.OrderBy(x => x.Name);
+
+        //    // Fix: Use productParams.PageNumber and productParams.PageSize instead of undefined pageNumber and pageSize
+        //    var pageNumber = productParams.PageNumber > 0 ? productParams.PageNumber : 1;
+        //    var pageSize = productParams.PageSize > 0 ? productParams.PageSize : 8;
+
+        //    products = products.Skip(pageSize * (pageNumber - 1)).Take(pageSize);
+        //    var result = mapper.Map<List<ProductGetDto>>(products);
+        //    return result;
+        //}
+
+        public async Task<productsReturned> GetAllAsync(ProductParams productParams)
         {
-            var products = context.Products.Include(x => x.Category).Include(x => x.Photos).AsNoTracking();
-            //filtering by words
+            var query = context.Products
+                .Include(m => m.Category)
+                .Include(m => m.Photos)
+                .AsNoTracking();
+
+
+
+            //filtering by word
             if (!string.IsNullOrEmpty(productParams.Search))
             {
-                var searchWords = productParams.Search.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                var searchWords = productParams.Search.Split(' ');
+                query = query.Where(m => searchWords.All(word =>
 
-                products = products.Where(x => searchWords.All(word=>
-                    x.Name.Contains(word, StringComparison.OrdinalIgnoreCase) || 
-                    x.Description.Contains(word, StringComparison.OrdinalIgnoreCase) || 
-                    x.Category.Name.Contains(word, StringComparison.OrdinalIgnoreCase)
+                m.Name.ToLower().Contains(word.ToLower()) ||
+                m.Description.ToLower().Contains(word.ToLower())
 
                 ));
             }
 
-            // Fix: Use productParams.CategoryId instead of undefined categoryId
-            if (productParams.CategoryId.HasValue)
-                products = products.Where(x => x.CategoryId == productParams.CategoryId);
+            //filtering by category Id
+            if (productParams.CategoryId>0)
+                query = query.Where(m => m.CategoryId == productParams.CategoryId);
 
-            // Fix: Use productParams.Sort instead of undefined sort
             if (!string.IsNullOrEmpty(productParams.Sort))
             {
-                products = productParams.Sort switch
+                query = productParams.Sort switch
                 {
-                    "PriceAce" => products.OrderBy(x => x.Price),
-                    "PriceDce" => products.OrderByDescending(x => x.Price),
-                    _ => products.OrderBy(x => x.Price),
+                    "Ace" => query.OrderBy(m => m.Price),
+                    "Dce" => query.OrderByDescending(m => m.Price),
+                    _ => query.OrderBy(m => m.Name),
                 };
             }
-            else
-                products = products.OrderBy(x => x.Name);
+            var products = new productsReturned();
+            products.count = query.Count();
 
-            // Fix: Use productParams.PageNumber and productParams.PageSize instead of undefined pageNumber and pageSize
-            var pageNumber = productParams.PageNumber > 0 ? productParams.PageNumber : 1;
-            var pageSize = productParams.PageSize > 0 ? productParams.PageSize : 8;
+            query = query.Skip((productParams.PageSize) * (productParams.PageNumber - 1)).Take(productParams.PageSize);
+            products.products = mapper.Map<List<ProductGetDto>>(query.ToList());
 
-            products = products.Skip(pageSize * (pageNumber - 1)).Take(pageSize);
-            var result = mapper.Map<List<ProductGetDto>>(products);
-            return result;
+            return products;
+
         }
 
     }

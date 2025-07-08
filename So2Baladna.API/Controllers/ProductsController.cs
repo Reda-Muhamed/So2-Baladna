@@ -24,15 +24,14 @@ namespace So2Baladna.API.Controllers
             {
                 var products = await unitWork.ProductRepository.GetAllAsync(productParams);
 
-                if (products == null || !products.Any())
+                if (products == null || !products.products.Any())
                     return NotFound(new ResponseHandler<string>(404, null, "There are no products"));
 
-                var count = await unitWork.ProductRepository.GetCountAsync();
+                //var count = await unitWork.ProductRepository.GetCountAsync();
 
                 // Convert products to IReadOnlyList<ProductGetDto> to match the expected type
-                var productList = products.ToList().AsReadOnly();
-
-                return Ok(new Pagination<ProductGetDto>(productParams.PageNumber, productParams.PageSize, count, productList));
+                var productList = products.products;
+                return Ok(new Pagination<ProductGetDto>(productParams.PageNumber, productParams.PageSize, products.count, productList));
             }
             catch (Exception)
             {

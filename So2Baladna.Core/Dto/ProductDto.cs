@@ -32,6 +32,12 @@ namespace So2Baladna.Core.Dto
         public virtual List<PhotoDto> Photos { get; set; } // virtual to enable lazy loading
         public string Categoryname { get; set; }
     }
+    public record productsReturned { 
+    public int count { get; set; }
+     public IReadOnlyList<ProductGetDto> products { get; set; }
+
+    }
+
     public record PhotoDto
     {
         public string Url { get; set; }
