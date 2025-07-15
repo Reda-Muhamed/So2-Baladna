@@ -25,7 +25,7 @@ namespace So2Baladna.Core.Dto
 
     }
     public record ProductGetDto {
-
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
