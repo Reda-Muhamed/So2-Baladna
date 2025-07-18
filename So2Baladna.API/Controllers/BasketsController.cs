@@ -6,9 +6,9 @@ using So2Baladna.Core.Interfaces;
 
 namespace So2Baladna.API.Controllers
 {
-    public class BasketController : BaseController
+    public class BasketsController : BaseController
     {
-        public BasketController(IUnitOfWork unitWork, IMapper mapper) : base(unitWork, mapper)
+        public BasketsController(IUnitOfWork unitWork, IMapper mapper) : base(unitWork, mapper)
         {
         }
         [HttpGet("get-basket-item/{id}")]

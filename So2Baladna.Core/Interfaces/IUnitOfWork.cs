@@ -12,6 +12,6 @@ namespace So2Baladna.Core.Interfaces
         public IProductRepository ProductRepository { get; }
         public IPhotoRepository PhotoRepository { get; }
         public ICustomerBasketRepository CustomerBasketRepository { get; }
-
+        public IAuthRepository AuthRepository { get; }
     }
 }

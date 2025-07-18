@@ -45,13 +45,14 @@ app.UseMiddleware<XssProtectionMiddleware>();
 app.UseMiddleware<RateLimitingMiddleware>();
 
 app.UseMiddleware<ExceptionMiddleware>();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
 app.UseStaticFiles();
 app.MapControllers();
 

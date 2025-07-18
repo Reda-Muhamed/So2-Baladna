@@ -36,7 +36,6 @@ namespace So2Baladna.Infrastructure.Repositories
 
         public async Task<CustomerBasket> UpdateBasketAsync(CustomerBasket customerBasket)
         {
-            // Fix: Convert `customerBasket.Id` (int) to a string before passing it as a RedisKey.
             var basket = await database.StringSetAsync(
                 customerBasket.Id,
                 JsonSerializer.Serialize(customerBasket),
