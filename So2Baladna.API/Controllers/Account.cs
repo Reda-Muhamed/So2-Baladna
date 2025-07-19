@@ -12,7 +12,7 @@ namespace So2Baladna.API.Controllers
         {
 
         }
-        [HttpPost("register")]
+        [HttpPost("Register")]
         public async Task<IActionResult> register(RegisterDTO registerDTO)
         {
             if (registerDTO == null)
@@ -26,7 +26,7 @@ namespace So2Baladna.API.Controllers
             }
             return Ok(new ResponseHandler<string>(200, "", res));
         }
-        [HttpPost("login")]
+        [HttpPost("Login")]
         public async Task<IActionResult> login(LoginDTO loginDTO)
         {
             var res = await unitWork.AuthRepository.LoginAsync(loginDTO);
@@ -52,6 +52,14 @@ namespace So2Baladna.API.Controllers
         {
             var res = await unitWork.AuthRepository.ActiveAccount(activeAccountDTO);
             return res ? Ok(value: new ResponseHandler<string>(200, "", "")) : BadRequest(new ResponseHandler<string>(400, "", ""));
+
+
+        }
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> reset(ResetPasswordDTO resetPasswordDTO )
+        {
+            var res = await unitWork.AuthRepository.ResetPassword(resetPasswordDTO);
+            return res == "Password changed successfully" ? Ok(value: new ResponseHandler<string>(200, "", "")) : BadRequest(new ResponseHandler<string>(400, "", ""));
 
 
         }

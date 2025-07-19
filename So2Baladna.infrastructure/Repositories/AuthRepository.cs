@@ -129,7 +129,7 @@ namespace Ecom.infrastructure.Repositries
 
         }
 
-        public async Task<string> ResetPassword(RestPasswordDTO restPassword)
+        public async Task<string> ResetPassword(ResetPasswordDTO restPassword)
         {
             var findUser = await userManager.FindByEmailAsync(restPassword.Email);
             if (findUser is null)

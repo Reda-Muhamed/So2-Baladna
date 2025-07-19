@@ -13,7 +13,7 @@ namespace So2Baladna.Core.Interfaces
         Task<string> RegisterAsync(RegisterDTO registerDTO);
         Task<string> LoginAsync(LoginDTO login);
         Task<bool> SendEmailForForgetPassword(string email);
-        Task<string> ResetPassword(RestPasswordDTO restPassword);
+        Task<string> ResetPassword(ResetPasswordDTO restPassword);
         Task<bool> ActiveAccount(ActiveAccountDTO accountDTO);
         Task<bool> UpdateAddress(string email, Address address);
         Task<Address> getUserAddress(string email);

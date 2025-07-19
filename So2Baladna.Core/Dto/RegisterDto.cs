@@ -17,7 +17,7 @@ namespace So2Baladna.Core.Dto
         public string DisplayName { get; set; }
 
     }
-    public record RestPasswordDTO : LoginDTO
+    public record ResetPasswordDTO : LoginDTO
     {
         public string Token { get; set; }
     }
