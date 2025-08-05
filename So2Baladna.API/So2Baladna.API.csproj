@@ -8,6 +8,7 @@
 	  <EnableCompressedStaticFiles>false</EnableCompressedStaticFiles>
 	  <EnableCompressionInStaticFiles>false</EnableCompressionInStaticFiles>
 
+    <UserSecretsId>7386b03c-567c-4eaa-ba8a-0df747d7de71</UserSecretsId>
   </PropertyGroup>
 
 
