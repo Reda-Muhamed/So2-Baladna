@@ -16,6 +16,6 @@ namespace So2Baladna.Core.Interfaces
         Task<string> ResetPassword(ResetPasswordDTO restPassword);
         Task<bool> ActiveAccount(ActiveAccountDTO accountDTO);
         Task<bool> UpdateAddress(string email, Address address);
-        Task<Address> getUserAddress(string email);
+        Task<Address?> GetUserAddressAsync(string email);
     }
 }

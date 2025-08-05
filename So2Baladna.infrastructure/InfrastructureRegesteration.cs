@@ -39,6 +39,7 @@ namespace So2Baladna.infrastructure
             services.AddSingleton<IImageManagementService, ImageManagementService>();
             services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
             services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IOrderService, OrderService>();
             //apply Redis connection
             services.AddSingleton<IConnectionMultiplexer>(i =>
             {
@@ -57,6 +58,7 @@ namespace So2Baladna.infrastructure
             {
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             });
+
             services.AddMemoryCache();
             // Authentication
             services.AddAuthentication(options =>
@@ -96,7 +98,8 @@ namespace So2Baladna.infrastructure
                     }
                 };
             });
-
+            //register payment
+            services.AddScoped<IPaymentService, PaymentService>();
 
             return services;
 

@@ -9,11 +9,10 @@ builder.Services.AddCors(options =>
     options.AddPolicy("CROSPolicy", policy =>
     {
         policy
-              .AllowAnyHeader()
-              .AllowAnyMethod()
-              .AllowCredentials()
-              .WithOrigins("http://localhost:4200")
-              ;
+            .WithOrigins("http://localhost:4200") 
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials(); 
     });
 });
 

@@ -24,13 +24,13 @@ namespace So2Baladna.Infrastructure.Repositories.Services
         {
             List<Claim> claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.Name , appUser.UserName),
-                new Claim(ClaimTypes.Email , appUser.Email),
+                new Claim(ClaimTypes.Name , appUser.UserName!),
+                new Claim(ClaimTypes.Email , appUser.Email!),
 
 
             };
             var security = configuration["Token:Secret"];
-            var key = Encoding.ASCII.GetBytes(security);
+            var key = Encoding.ASCII.GetBytes(security!);
             var credentials = new SigningCredentials(new SymmetricSecurityKey(key),SecurityAlgorithms.HmacSha256);
 
             SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor()

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using So2Baladna.Core.Entities;
+using So2Baladna.Core.Entities.Order;
 using So2Baladna.Core.Entities.Product;
 using System.Reflection;
 using System.Text;
@@ -21,6 +22,10 @@ namespace So2Baladna.infrastructure.Data
         public virtual DbSet<Product> Products { get; set; } = null!;
         public virtual DbSet<Photo> Photos { get; set; } = null!;
         public virtual DbSet<Address> Addresss { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<OrderItem> OrderItems { get; set; }
+        public virtual DbSet<DeliveryMethod> DeliveryMethods { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

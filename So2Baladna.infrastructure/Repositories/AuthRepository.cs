@@ -25,11 +25,6 @@ namespace Ecom.infrastructure.Repositries
             this.context = context;
         }
 
-        public Task<Address> getUserAddress(string email)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<string> RegisterAsync(RegisterDTO registerDTO)
         {
             if (registerDTO == null)
@@ -64,12 +59,6 @@ namespace Ecom.infrastructure.Repositries
             return "done";
         }
 
-
-
-        public Task<bool> UpdateAddress(string email, Address address)
-        {
-            throw new NotImplementedException();
-        }
 
 
         public async Task SendEmail(string email, string code, string component, string subject, string message)
@@ -164,39 +153,40 @@ namespace Ecom.infrastructure.Repositries
             return false;
         }
 
-        //public async Task<bool> UpdateAddress(string email, Address address)
-        //{
-        //    var findUser = await userManager.FindByEmailAsync(email);
-        //    if (findUser is null)
-        //    {
-        //        return false;
-        //    }
-        //    var Myaddress = await context.Addresses.AsNoTracking()
-        //        .FirstOrDefaultAsync(m => m.AppUserId == findUser.Id);
+        public async Task<bool> UpdateAddress(string email, Address address)
+        {
+            var findUser = await userManager.FindByEmailAsync(email);
+            if (findUser is null)
+            {
+                return false;
+            }
+            var Myaddress = await context.Addresss.AsNoTracking()
+                .FirstOrDefaultAsync(m => m.AppUserId == findUser.Id);
 
-        //    if (Myaddress is null)
-        //    {
-        //        address.AppUserId = findUser.Id;
-        //        await context.Addresses.AddAsync(address);
-        //    }
-        //    else
-        //    {
-        //        context.Entry(Myaddress).State = EntityState.Detached;
-        //        address.Id = Myaddress.Id;
-        //        address.AppUserId = Myaddress.AppUserId;
-        //        context.Addresses.Update(address);
+            if (Myaddress is null)
+            {
+                address.AppUserId = findUser.Id;
+                await context.Addresss.AddAsync(address);
+            }
+            else
+            {
+                context.Entry(Myaddress).State = EntityState.Detached;
+                address.Id = Myaddress.Id;
+                address.AppUserId = Myaddress.AppUserId;
+                context.Addresss.Update(address);
 
-        //    }
-        //    await context.SaveChangesAsync();
-        //    return true;
-        //}
+            }
+            await context.SaveChangesAsync();
+            return true;
+        }
 
-        //public async Task<Address> getUserAddress(string email)
-        //{
-        //    var User = await userManager.FindByEmailAsync(email);
-        //    var address = await context.Addresses.FirstOrDefaultAsync(m => m.AppUserId == User.Id);
+        public async Task<Address?> GetUserAddressAsync(string email)
+        {
+            var user = await userManager.FindByEmailAsync(email);
+            if (user == null) return null;
 
-        //    return address;
-        //}
+            return await context.Addresss.FirstOrDefaultAsync(a => a.AppUserId == user.Id);
+        }
+
     }
 }

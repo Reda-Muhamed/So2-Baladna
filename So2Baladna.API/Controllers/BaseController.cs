@@ -9,7 +9,7 @@ namespace So2Baladna.API.Controllers
     public class BaseController: ControllerBase
     {
         protected readonly IUnitOfWork unitWork;
-        private readonly IMapper mapper;
+        protected readonly IMapper mapper;
 
         public BaseController(IUnitOfWork unitWork , IMapper mapper)
         {
