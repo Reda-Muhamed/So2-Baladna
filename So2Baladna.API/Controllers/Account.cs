@@ -7,7 +7,6 @@ using So2Baladna.Core.Entities;
 using So2Baladna.Core.Interfaces;
 using System.Security.Claims;
 using static StackExchange.Redis.Role;
-
 namespace So2Baladna.API.Controllers
 {
     public class Account : BaseController
