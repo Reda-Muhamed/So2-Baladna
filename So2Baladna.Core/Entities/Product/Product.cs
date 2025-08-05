@@ -12,6 +12,7 @@ namespace So2Baladna.Core.Entities.Product
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
+        public double rating { get; set; }
         public virtual List<Photo> Photos { get; set; } // virtual to enable lazy loading
         public int CategoryId { get; set; }
         [ForeignKey(nameof(CategoryId))]

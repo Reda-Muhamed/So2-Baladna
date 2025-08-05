@@ -12,6 +12,7 @@ using So2Baladna.Core.Interfaces;
 using So2Baladna.Core.Services;
 using So2Baladna.infrastructure.Data;
 using So2Baladna.infrastructure.Repositories;
+using So2Baladna.Infrastructure.Repositories;
 using So2Baladna.Infrastructure.Repositories.Services;
 using StackExchange.Redis;
 using System;
@@ -100,6 +101,8 @@ namespace So2Baladna.infrastructure
             });
             //register payment
             services.AddScoped<IPaymentService, PaymentService>();
+            services.AddScoped<IRating, RatingRepository>();
+
 
             return services;
 

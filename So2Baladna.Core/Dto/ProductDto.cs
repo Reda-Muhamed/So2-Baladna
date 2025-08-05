@@ -14,7 +14,6 @@ namespace So2Baladna.Core.Dto
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
-        
         public int CategoryId { get; set; }
         public IFormFileCollection Images { get; set; }
 
@@ -28,6 +27,7 @@ namespace So2Baladna.Core.Dto
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public double rating { get; set; }
         public decimal Price { get; set; }
         public virtual List<PhotoDto> Photos { get; set; } // virtual to enable lazy loading
         public string Categoryname { get; set; }
